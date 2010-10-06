@@ -11,16 +11,43 @@
 #import "FileReader.h"
 
 
-
 /**
 	Application delegate.
  */
 @implementation LineReaderAppDelegate
 
 
-@synthesize window;
+/**
+	Initializes an application delegate object.
+	@returns An initialized LineReaderAppDelegate object or nil if the object could not be created.
+ */
+- (id)init {
+
+	self = [super init];
+	if (self != nil) {
+		m_maxNumLines = [NSNumber numberWithInt:3];
+		[self setSourcePath:[NSString stringWithFormat:@"/tmp/"]];
+	}
+	return self;
+}
 
 
+@synthesize window = m_window;
+@synthesize maxNumLines = m_maxNumLines;
+@dynamic sourcePath;
+
+- (NSString*)sourcePath {
+	return [m_sourcePath stringValue];
+}
+
+- (void)setSourcePath:(NSString*)sourcePath {
+	m_sourcePath = [[NSTextField alloc] init];	
+	if (!sourcePath || [sourcePath length] <= 0) {
+		[m_sourcePath setStringValue:@""];
+		return;
+	}	
+	[m_sourcePath setStringValue:sourcePath];
+}
 
 /**
 	Sent by the default notification center after the application 
@@ -38,22 +65,31 @@
 	@param sender The object calling this method.
  */
 - (IBAction)sourcePathChanged:(id)sender {
+	
+	DirectoryReader* directoryReader = [[DirectoryReader alloc] initWithPath:[m_sourcePath stringValue]];
+	if (!directoryReader) {
+		return;
+	}
 
-	DirectoryReader* dr = [[DirectoryReader	alloc] initWithPath:[m_sourcePath stringValue]];
-	if ([dr readDirectory:&m_directoryListing]) {
-		NSLog(@"%@",m_directoryListing); /* DEBUG LOG */
-		
+	if ([directoryReader readDirectory:&m_directoryListing]) {
+
 		for (NSString* path in m_directoryListing) {
-			
-			int numLines = 0;
-			
-			FileReader* fr = [[FileReader alloc] initWithFilePath:path];
-			NSString* line = nil;
-			while (numLines <= 5 && (line = [fr readTrimmedLine])) {
-				NSLog(@"%@",line); /* DEBUG LOG */
-				numLines++;
+			NSLog(@"File: %@", path); /* DEBUG LOG */
+			int numLine = 0;
+			FileReader* fileReader = [[FileReader alloc] initWithFilePath:path];
+			if (!fileReader) {
+				return;
 			}
-		}			
+			
+			NSString* line = nil;
+			while (line = [fileReader readLine]) {
+				numLine++;
+				NSLog(@"------------------ %2.d: %@", numLine, line); /* DEBUG LOG */
+				if (numLine >= [m_maxNumLines intValue]) {
+					break;
+				}
+			}
+		}		
 	}
 }
 

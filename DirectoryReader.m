@@ -24,6 +24,9 @@
 
 	self = [super init];
 	if (self != nil) {
+		if (!path || [path length] <= 0) {
+			return nil;
+		}
 		m_path = path;
 	}
 	return self;
@@ -36,11 +39,7 @@
  */
 - (BOOL)readDirectory:(NSArray**)files {
 
-
 	BOOL success = false;
-	if (!m_path) {
-		return success;
-	}
 	
 	NSArray* fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:m_path error:nil];
 	

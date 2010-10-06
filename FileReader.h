@@ -5,8 +5,8 @@
 //  Created by Tobias Preuss on 05.10.10.
 //  Copyright 2010 Tobias Preuss. All rights reserved.
 //
-//	Source: Dave DeLong, http://stackoverflow.com/questions/3707427#3711079
-
+//  Originally written by Dave DeLong, 
+//  Source: http://stackoverflow.com/questions/3707427#3711079
 
 #import <Cocoa/Cocoa.h>
 
@@ -26,6 +26,7 @@
 
 - (id)initWithFilePath:(NSString*)filePath;
 - (NSString*)readLine;
+- (NSString*)readLineBackwards;
 - (NSString*)readTrimmedLine;
 
 #if NS_BLOCKS_AVAILABLE

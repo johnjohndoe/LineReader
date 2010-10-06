@@ -9,13 +9,15 @@
 #import <Cocoa/Cocoa.h>
 
 @interface LineReaderAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow*				window;
+    NSWindow*				m_window;
 	IBOutlet NSTextField*	m_sourcePath;
-	IBOutlet NSTableView*	m_tableView;
+	NSNumber*				m_maxNumLines;
 	NSArray*				m_directoryListing;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSWindow* window;
+@property (readwrite, assign) NSString* sourcePath;
+@property (readwrite, assign) NSNumber* maxNumLines;
 
 - (IBAction)sourcePathChanged:(id)sender;
 
