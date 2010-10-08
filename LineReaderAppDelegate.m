@@ -36,11 +36,23 @@
 @synthesize maxNumLines = m_maxNumLines;
 @dynamic sourcePath;
 
+
+
+/**
+	Return the source path stored in the text field.
+	@returns The source path as a NSString.
+ */
 - (NSString*)sourcePath {
+
 	return [m_sourcePath stringValue];
 }
 
+/**
+	Sets the text field with the source path.
+	@param sourcePath The source path.
+ */
 - (void)setSourcePath:(NSString*)sourcePath {
+
 	m_sourcePath = [[NSTextField alloc] init];	
 	if (!sourcePath || [sourcePath length] <= 0) {
 		[m_sourcePath setStringValue:@""];
@@ -82,7 +94,7 @@
 			}
 			
 			NSString* line = nil;
-			while (line = [fileReader readLine]) {
+			while (line = [fileReader readLineBackwards]) {
 				numLine++;
 				NSLog(@"------------------ %2.d: %@", numLine, line); /* DEBUG LOG */
 				if (numLine >= [m_maxNumLines intValue]) {

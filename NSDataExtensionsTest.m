@@ -8,13 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "FileReader.h"
+#import "NSDataExtensions.h"
 
 
 int main()
 
 {
-	NSString* contents = @"one\ntwo\nthree\none\ntwo\nthree";
-	NSString* delim = @"o\n";
+	NSString* contents = @"one\none\n";
+	NSString* delim = @"\n";
+	NSLog(@"Contents length: %d", [contents length]); /* DEBUG LOG */
+	NSLog(@"Delimiter length: %d", [delim length]); /* DEBUG LOG */
 	
 	// -----------------------------------------------------------------------------
 	// Test using NSString objects.

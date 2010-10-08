@@ -10,131 +10,7 @@
 
 
 #import "FileReader.h"
-
-
-
-// -----------------------------------------------------------------------------
-// NSData extensions declaration.
-// -----------------------------------------------------------------------------
-
-
-@interface NSData (Additions)
-
-- (NSRange)rangeOfData:(NSData*)dataToFind;
-- (NSRange)rangeOfDataBackwardsSearch:(NSData*)dataToFind;
-- (NSString*)stringValueWithEncoding:(NSStringEncoding)encoding;
-
-@end
-
-
-// -----------------------------------------------------------------------------
-// NSData extensions implementation.
-// -----------------------------------------------------------------------------
-
-
-
-/**
- Extension of the NSData class.
- @param Additions Additions.
- @returns An initialized NSData object or nil if the object could not be created.
- */
-@implementation NSData (Additions)
-
-
-/**
- Returns a range of data.
- @param dataToFind Data object specifying the delimiter and encoding.
- @returns A range.
- */
-- (NSRange)rangeOfData:(NSData*)dataToFind {
-	
-	const void* bytes = [self bytes];
-	NSUInteger length = [self length];
-	const void* searchBytes = [dataToFind bytes];
-	NSUInteger searchLength = [dataToFind length];
-	NSUInteger searchIndex = 0;
-	
-	NSRange foundRange = {NSNotFound, searchLength};
-	for (NSUInteger index = 0; index < length; index++) {
-		// The current character matches.
-		if (((char*)bytes)[index] == ((char*)searchBytes)[searchIndex]) {
-			// Store found location if not done earlier.
-			if (foundRange.location == NSNotFound) {
-				foundRange.location = index;
-			}
-			// Increment search character index to check for match.
-			searchIndex++;
-			// All search character match.
-			// Break search routine and return found position.
-			if (searchIndex >= searchLength) {
-				return foundRange;
-			}
-		}
-		// Match does not continue.
-		// Return to the first search character.
-		// Discard former found location.
-		else {
-			searchIndex = 0;
-			foundRange.location = NSNotFound;
-		}
-	}
-	return foundRange;
-}
-
-
-- (NSRange)rangeOfDataBackwardsSearch:(NSData*)dataToFind {
-	
-	const void* bytes = [self bytes];
-	NSUInteger length = [self length];
-	const void* searchBytes = [dataToFind bytes];
-	NSUInteger searchLength = [dataToFind length];
-	NSUInteger searchIndex = 0;
-	
-	NSRange foundRange = {NSNotFound, searchLength};
-	for (NSUInteger index = length - searchLength; index >= 0;) {
-		if (((char*)bytes)[index] == ((char*)searchBytes)[searchIndex]) {
-			// The current character matches.
-			if (foundRange.location == NSNotFound) {
-				foundRange.location = index;
-			}
-			index++;
-			searchIndex++;
-			if (searchIndex >= searchLength) {
-				return foundRange;
-			}
-		}
-		else {
-			// Decrement to search backwards.
-			if (foundRange.location == NSNotFound) {
-				index--;
-			}
-			// Jump over the former found location
-			// to avoid endless loop.
-			else {
-				index = index - 2;
-			}
-			searchIndex = 0;
-			foundRange.location = NSNotFound;
-		}
-	}
-	return foundRange;
-}
-
-- (NSString*)stringValueWithEncoding:(NSStringEncoding)encoding {
-	return [[NSString alloc] initWithData:self encoding:encoding];
-}
-
-@end
-
-
-
-
-
-// -----------------------------------------------------------------------------
-// FileReader implementation.
-// -----------------------------------------------------------------------------
-
-
+#import "NSDataExtensions.h"
 
 
 /**
@@ -170,6 +46,8 @@
 		m_chunkSize = 10;
 		[m_fileHandle seekToEndOfFile];
 		m_totalFileLength = [m_fileHandle offsetInFile];
+		// TODO Only needed for backwards reading.
+		m_currentOffset = m_totalFileLength;
 		NSLog(@"%qu characters in %@", m_totalFileLength, [filePath lastPathComponent]); /* DEBUG LOG */
 		// We do not need to seek back since readLine will do that.
 	}
@@ -199,6 +77,7 @@
 		}
 		NSLog(@"\t   m_currentOffset: %qu", m_currentOffset); /* DEBUG LOG */
 		NSData* chunk = [m_fileHandle readDataOfLength:m_chunkSize]; // always length = 10
+		NSLog(@"\t\t\t\t chunk: %@", [chunk stringValueWithEncoding:NSUTF8StringEncoding]); /* DEBUG LOG */
 		// Find the location and length of the next line delimiter.
 		NSRange newLineRange = [chunk rangeOfData:newLineData];
 		NSLog(@"\t\t  newLineRange: %d (%d)", newLineRange.location, newLineRange.length); /* DEBUG LOG */
@@ -207,11 +86,11 @@
 			NSRange subDataRange = NSMakeRange(0, newLineRange.location + [newLineData length]);
 			NSLog(@"\t\t  subDataRange: %d (%d)", subDataRange.location, subDataRange.length); /* DEBUG LOG */
 			chunk = [chunk subdataWithRange:subDataRange];
-			NSLog(@"\t\t\t\t chunk: %@", [chunk stringValueWithEncoding:NSUTF8StringEncoding]); /* DEBUG LOG */
+//			NSLog(@"\t\t\t\t chunk: %@", [chunk stringValueWithEncoding:NSUTF8StringEncoding]); /* DEBUG LOG */
 			shouldReadMore = NO;
 		}
 		[currentData appendData:chunk];
-		NSLog(@"\t\t   currentData: %@", [currentData stringValueWithEncoding:NSUTF8StringEncoding]); /* DEBUG LOG */
+//		NSLog(@"\t\t   currentData: %@", [currentData stringValueWithEncoding:NSUTF8StringEncoding]); /* DEBUG LOG */
 		m_currentOffset += [chunk length];
 	}
 	
@@ -223,43 +102,69 @@
 
 
 - (NSString*)readLineBackwards {
-	
-	if (m_currentOffset >= m_totalFileLength) {
+
+	if (m_currentOffset < 0ULL) {
+		NSLog(@"RETURN NIL"); /* DEBUG LOG */
 		return nil;
 	}
-	
-	NSData* newLineData = [m_lineDelimiter dataUsingEncoding:NSUTF8StringEncoding];	
-	m_currentOffset = m_totalFileLength - m_chunkSize;
+	NSData* newLineData = [m_lineDelimiter dataUsingEncoding:NSUTF8StringEncoding];
+	// Initialially shift backwards.
+	if (m_currentOffset == m_totalFileLength) {
+		m_currentOffset -= m_chunkSize;
+	}
 	[m_fileHandle seekToFileOffset:m_currentOffset];
 	NSMutableData* currentData = [[NSMutableData alloc] init];
 	BOOL shouldReadMore = YES;
 	
 	while (shouldReadMore) {
-//		if (m_currentOffset >= m_totalFileLength) {
+		
+//		if (m_currentOffset <= 0ULL) {
+//			NSLog(@"BREAK"); /* DEBUG LOG */
 //			break;
 //		}
-		NSLog(@"\t   m_currentOffset: %qu", m_currentOffset); /* DEBUG LOG */
-		if (m_currentOffset <= 0ULL) {
-			break;
+		//m_currentOffset -= m_chunkSize;
+		NSUInteger currentChunkSize = m_chunkSize;
+		if (m_currentOffset < 0ULL) {
+			do {
+				m_currentOffset++;
+				currentChunkSize--;
+			} while (m_currentOffset <= 0ULL);
 		}
-		NSData* chunk = [m_fileHandle readDataOfLength:m_chunkSize];
+		else {
+			NSLog(@"else"); /* DEBUG LOG */
+		}
+
+		NSData* chunk = [m_fileHandle readDataOfLength:currentChunkSize];
 		NSLog(@"chunk: %@", [chunk stringValueWithEncoding:NSUTF8StringEncoding]); /* DEBUG LOG */
-		// Find the location and length of the next line delimiter.
+		
+		
+		NSString* bar = @"\ntwo\nthree";
+		NSData* baz = [bar dataUsingEncoding:NSUTF8StringEncoding];
+		NSRange newLineRange2 = [baz rangeOfDataBackwardsSearch:newLineData];
+		NSLog(@"TEST: %d %d", newLineRange2.location, newLineRange2.length); /* DEBUG LOG */
+		
+		
 		NSRange newLineRange = [chunk rangeOfDataBackwardsSearch:newLineData];
-		NSLog(@"\t\t  newLineRange: %d (%d)", newLineRange.location, newLineRange.length); /* DEBUG LOG */
 		if (newLineRange.location != NSNotFound) {
-			// Include the length so we can include the delimiter in the string.
-			NSUInteger chunkLength = newLineRange.location - [newLineData length];
-			chunk = [chunk subdataWithRange:NSMakeRange(m_currentOffset - chunkLength, chunkLength)];
+			NSUInteger subDataLoc = newLineRange.location + [newLineData length];
+			NSUInteger subDataLen = currentChunkSize - subDataLoc;			
+			chunk = [chunk subdataWithRange:NSMakeRange(subDataLoc, subDataLen)];
+			NSLog(@"chunk: %@", [chunk stringValueWithEncoding:NSUTF8StringEncoding]); /* DEBUG LOG */
 			shouldReadMore = NO;
 		}
 		[currentData appendData:chunk];
-		m_currentOffset -= [chunk length];
+		int foo = m_currentOffset - m_chunkSize;
+		if (foo < 0) {
+			m_currentOffset = 0ULL;
+		}
+		else {
+			m_currentOffset = foo;
+		}
 	}
-	
 	NSString* line = [[NSString alloc] initWithData:currentData encoding:NSUTF8StringEncoding];
-	return line;	
+	return line;
 }
+
 
 
 
