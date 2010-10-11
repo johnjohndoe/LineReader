@@ -12,7 +12,7 @@
 
 
 /**
-	Application delegate.
+	An application delegate.
  */
 @implementation LineReaderAppDelegate
 
@@ -27,6 +27,7 @@
 	if (self != nil) {
 		m_maxNumLines = [NSNumber numberWithInt:3];
 		[self setSourcePath:[NSString stringWithFormat:@"/tmp/"]];
+		m_searchBackwards = [NSNumber numberWithInt:1];
 	}
 	return self;
 }
@@ -34,12 +35,13 @@
 
 @synthesize window = m_window;
 @synthesize maxNumLines = m_maxNumLines;
+@synthesize searchBackwards = m_searchBackwards;
 @dynamic sourcePath;
 
 
 
 /**
-	Return the source path stored in the text field.
+	Returns the source path stored in the text field.
 	@returns The source path as a NSString.
  */
 - (NSString*)sourcePath {
@@ -73,7 +75,8 @@
 
 
 /**
-	Is called when the source path changes.
+	Reads a various number of lines from multiple files as found in the source path.
+	The function is called whenever the source path changes.
 	@param sender The object calling this method.
  */
 - (IBAction)sourcePathChanged:(id)sender {
@@ -94,13 +97,25 @@
 			}
 			
 			NSString* line = nil;
-			while (line = [fileReader readLineBackwards]) {
-				numLine++;
-				NSLog(@"------------------ %2.d: %@", numLine, line); /* DEBUG LOG */
-				if (numLine >= [m_maxNumLines intValue]) {
-					break;
+			if ([m_searchBackwards boolValue]) {
+				while (line = [fileReader readLineBackwards]) {
+					numLine++;
+					NSLog(@"%3.d: %@", numLine, line); /* DEBUG LOG */
+					if (numLine >= [m_maxNumLines intValue]) {
+						break;
+					}
 				}
 			}
+			else {
+				while (line = [fileReader readLine]) {
+					numLine++;
+					NSLog(@"%3.d: %@", numLine, line); /* DEBUG LOG */
+					if (numLine >= [m_maxNumLines intValue]) {
+						break;
+					}
+				}
+				
+			}			
 		}		
 	}
 }

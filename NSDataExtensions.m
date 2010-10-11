@@ -9,12 +9,22 @@
 #import "NSDataExtensions.h"
 
 
+
+// -----------------------------------------------------------------------------
+// NSData additions.
+// -----------------------------------------------------------------------------
+
+
 /**
- Extension of the NSData class.
- @param Additions Additions.
+ Extension of the NSData class. 
+ Data can be found forwards or backwards. Further the extension supplies a function 
+ to convert the contents to string for debugging purposes.
+ @param Additions Category labeled Additions.
  @returns An initialized NSData object or nil if the object could not be created.
  */
 @implementation NSData (Additions)
+
+
 
 
 /**
@@ -86,6 +96,11 @@
 		else {
 			// Decrement to search backwards.
 			if (foundRange.location == NSNotFound) {
+				// Skip if first byte has been reached.
+				if (index == 0) {
+					foundRange.location = NSNotFound;
+					return foundRange;
+				}
 				index--;
 			}
 			// Jump over the former found location
@@ -102,6 +117,36 @@
 
 - (NSString*)stringValueWithEncoding:(NSStringEncoding)encoding {
 	return [[NSString alloc] initWithData:self encoding:encoding];
+}
+
+@end
+
+
+
+
+// -----------------------------------------------------------------------------
+// NSMutableData additions.
+// -----------------------------------------------------------------------------
+
+
+/**
+ Extension of the NSMutableData class. 
+ Data can be prepended in addition to the append function of the framework.
+ @param Additions Category labeled Additions.
+ @returns An initialized NSMutableData object or nil if the object could not be created.
+ */
+@implementation NSMutableData (Additions)
+
+/**
+	Inserts the data before the data of the object.
+	@param data Data to be prepended.
+ */
+- (void)prepend:(NSData*)data {
+
+	
+	NSMutableData* concat = [NSMutableData dataWithData:data];
+	[concat appendData:self];
+	[self setData:concat];
 }
 
 @end

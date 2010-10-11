@@ -11,7 +11,7 @@
 
 @interface DirectoryReader : NSObject {
 
-	NSString*	m_path;	
+	NSString*	m_path;		/**< File path. */
 }
 
 - (BOOL)readDirectory:(NSArray**)files;
