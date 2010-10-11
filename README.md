@@ -3,7 +3,7 @@ LineReader
 
 A collection of classes to implement a file reader that can read a specific amount 
 of the content of a file. Instead of reading the whole file at once the aim is to 
-read block wise. 
+read block wise. The file contents can be read forwards or backwards. 
 
 The included FileReader class originally has been created by Dave DeLong. Here you 
 can find his answer on a question at stackoverflow.com.
