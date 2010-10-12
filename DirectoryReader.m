@@ -27,7 +27,10 @@
 		if (!path || [path length] <= 0) {
 			return nil;
 		}
-		m_path = path;
+		// Remove trailing slash if appended.
+		NSMutableString* mutablePath = [NSMutableString stringWithString:path];
+		[mutablePath replaceOccurrencesOfString:@"/" withString:@"" options:NSBackwardsSearch range:NSMakeRange([path length] - 1, 1)];
+		m_path = mutablePath;
 	}
 	return self;
 }

@@ -57,11 +57,12 @@
 
 /**
 	Reads the file forwards.
+	Empty lines are not returned.
 	@returns Another single line on each call or nil if the file end has been reached.
  */
 - (NSString*)readLine {
 
-	if (m_currentOffset >= m_totalFileLength) {
+	if (m_totalFileLength == 0 || m_currentOffset >= m_totalFileLength) {
 		return nil;
 	}
 	
@@ -96,11 +97,12 @@
 
 /**
 	Reads the file backwards.
+	Empty lines are returned as well.
 	@returns Another single line on each call or nil if the file end has been reached.
  */
 - (NSString*)readLineBackwards {
 
-	if (m_currentInset == 0 && m_chunkSize == 0) {
+	if (m_totalFileLength == 0 || m_currentInset == 0 && m_chunkSize == 0) {
 		return nil;
 	}
 	

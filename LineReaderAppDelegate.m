@@ -25,43 +25,36 @@
 
 	self = [super init];
 	if (self != nil) {
+		m_sourcePath = [NSString stringWithFormat:@"/tmp/"];
 		m_maxNumLines = [NSNumber numberWithInt:3];
-		[self setSourcePath:[NSString stringWithFormat:@"/tmp/"]];
-		m_searchBackwards = [NSNumber numberWithInt:1];
+		m_selectedReadMode = [NSNumber numberWithInt:BACKWARDS];
+		m_printLines = [NSNumber numberWithBool:NO];
+		m_status = [NSString stringWithFormat:@"Application started."];		
+		m_directoryListing = nil;
 	}
 	return self;
 }
 
 
+// -----------------------------------------------------------------------------
+// Properties.
+// -----------------------------------------------------------------------------
+
+
 @synthesize window = m_window;
 @synthesize maxNumLines = m_maxNumLines;
-@synthesize searchBackwards = m_searchBackwards;
-@dynamic sourcePath;
+@synthesize sourcePath = m_sourcePath;
+@synthesize selectedReadMode = m_selectedReadMode;
+@synthesize printLines = m_printLines;
+@synthesize status = m_status;
 
 
 
-/**
-	Returns the source path stored in the text field.
-	@returns The source path as a NSString.
- */
-- (NSString*)sourcePath {
 
-	return [m_sourcePath stringValue];
-}
+// -----------------------------------------------------------------------------
+// Event functions.
+// -----------------------------------------------------------------------------
 
-/**
-	Sets the text field with the source path.
-	@param sourcePath The source path.
- */
-- (void)setSourcePath:(NSString*)sourcePath {
-
-	m_sourcePath = [[NSTextField alloc] init];	
-	if (!sourcePath || [sourcePath length] <= 0) {
-		[m_sourcePath setStringValue:@""];
-		return;
-	}	
-	[m_sourcePath setStringValue:sourcePath];
-}
 
 /**
 	Sent by the default notification center after the application 
@@ -73,51 +66,113 @@
 }
 
 
-
 /**
-	Reads a various number of lines from multiple files as found in the source path.
-	The function is called whenever the source path changes.
+	The function is called whenever lines should be read.
 	@param sender The object calling this method.
  */
-- (IBAction)sourcePathChanged:(id)sender {
+- (IBAction)readLinesRequested:(id)sender {
 	
-	DirectoryReader* directoryReader = [[DirectoryReader alloc] initWithPath:[m_sourcePath stringValue]];
+	[self processSource];
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Private functions.
+// -----------------------------------------------------------------------------
+
+
+
+/**
+	Reads a various number of lines from multiple files as 
+	found in the source path. The lines can be read forwards 
+	or backwards from the file.
+ */
+- (void)processSource {
+
+	int lineCount;
+	NSTimeInterval processingStarted = [NSDate timeIntervalSinceReferenceDate];
+	
+	DirectoryReader* directoryReader = [[DirectoryReader alloc] initWithPath:m_sourcePath];
 	if (!directoryReader) {
 		return;
 	}
-
+	
 	if ([directoryReader readDirectory:&m_directoryListing]) {
-
+		
 		for (NSString* path in m_directoryListing) {
 			NSLog(@"File: %@", path); /* DEBUG LOG */
-			int numLine = 0;
+			lineCount = 0;
 			FileReader* fileReader = [[FileReader alloc] initWithFilePath:path];
 			if (!fileReader) {
 				return;
 			}
 			
 			NSString* line = nil;
-			if ([m_searchBackwards boolValue]) {
-				while (line = [fileReader readLineBackwards]) {
-					numLine++;
-					NSLog(@"%3.d: %@", numLine, line); /* DEBUG LOG */
-					if (numLine >= [m_maxNumLines intValue]) {
+			
+			
+			if ([m_printLines boolValue]) {
+				// Print lines to console.
+				switch ([m_selectedReadMode intValue]) {
+					case FORWARDS:
+						while (line = [fileReader readLine]) {
+							lineCount++;
+							NSLog(@"%3.d: %@", lineCount, line);
+							if (lineCount >= [m_maxNumLines intValue]) {
+								break;
+							}
+						}				
 						break;
-					}
-				}
+					case BACKWARDS:
+						while (line = [fileReader readLineBackwards]) {
+							lineCount++;
+							NSLog(@"%3.d: %@", lineCount, line);
+							if (lineCount >= [m_maxNumLines intValue]) {
+								break;
+							}
+						}					
+						break;
+					default:
+						NSLog(@"Warning: Read mode not set correctly."); /* DEBUG LOG */
+						break;
+				}				
 			}
 			else {
-				while (line = [fileReader readLine]) {
-					numLine++;
-					NSLog(@"%3.d: %@", numLine, line); /* DEBUG LOG */
-					if (numLine >= [m_maxNumLines intValue]) {
+				// Do not print lines to console.				
+				switch ([m_selectedReadMode intValue]) {
+					case FORWARDS:
+						while (line = [fileReader readLine]) {
+							lineCount++;
+							if (lineCount >= [m_maxNumLines intValue]) {
+								break;
+							}
+						}				
 						break;
-					}
-				}
+					case BACKWARDS:
+						while (line = [fileReader readLineBackwards]) {
+							lineCount++;
+							if (lineCount >= [m_maxNumLines intValue]) {
+								break;
+							}
+						}					
+						break;
+					default:
+						NSLog(@"Warning: Read mode not set correctly."); /* DEBUG LOG */
+						break;
+				}				
 				
-			}			
+			}
+
 		}		
 	}
+	
+	NSTimeInterval processingEnded = [NSDate timeIntervalSinceReferenceDate];
+	
+	if ([m_selectedReadMode intValue] == FORWARDS)
+		self.status = [NSString stringWithFormat:@"Processing %d lines forwards took %f seconds.", lineCount, (processingEnded - processingStarted)];
+	else
+		self.status = [NSString stringWithFormat:@"Processing %d lines backwards took %f seconds.", lineCount, (processingEnded - processingStarted)];
+					
 }
 
 @end
