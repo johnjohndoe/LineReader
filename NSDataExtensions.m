@@ -28,8 +28,8 @@
 
 
 /**
- Returns a range of data.
- @param dataToFind Data object specifying the delimiter and encoding.
+ Returns a range of data using forwards search.
+ @param dataToFind Data object specifying the delimiter.
  @returns A range.
  */
 - (NSRange)rangeOfData:(NSData*)dataToFind {
@@ -68,7 +68,13 @@
 }
 
 
+/**
+	Returns a range of data using backwards search.
+	@param dataToFind Data object specifying the delimiter.
+	@returns A range.
+ */
 - (NSRange)rangeOfDataBackwardsSearch:(NSData*)dataToFind {
+
 	
 	const void* bytes = [self bytes];
 	NSUInteger length = [self length];
@@ -115,7 +121,14 @@
 	return foundRange;
 }
 
+
+/**
+	Returns the string representation of the data based on the encoding.
+	@param encoding The character encoding.
+	@returns The string representation.
+ */
 - (NSString*)stringValueWithEncoding:(NSStringEncoding)encoding {
+
 	return [[NSString alloc] initWithData:self encoding:encoding];
 }
 

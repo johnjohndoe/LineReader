@@ -115,18 +115,26 @@
 				// Print lines to console.
 				switch ([m_selectedReadMode intValue]) {
 					case FORWARDS:
+						[fileReader setCurrentOffset:34];
 						while (line = [fileReader readLine]) {
-							lineCount++;
-							NSLog(@"%3.d: %@", lineCount, line);
+							lineCount++;							
+							uint fromBytePos = [fileReader currentOffset] - [line length];
+							uint tillBytePos = [fileReader currentOffset] - 1;
+							NSLog(@"%3.d: (%d - %d) %@", lineCount, fromBytePos, tillBytePos, line);
+							NSLog(@"CURRENTOFFSET = %d", [fileReader currentOffset]); /* DEBUG LOG */
 							if (lineCount >= [m_maxNumLines intValue]) {
 								break;
 							}
 						}				
 						break;
 					case BACKWARDS:
+						[fileReader setCurrentIndent:34];
 						while (line = [fileReader readLineBackwards]) {
-							lineCount++;
-							NSLog(@"%3.d: %@", lineCount, line);
+							lineCount++;							
+							uint fromBytePos = [fileReader currentIndent];
+							uint tillBytePos = fromBytePos + [line length];
+							NSLog(@"%3.d: (%d - %d) %@", lineCount, fromBytePos, tillBytePos, line);
+							NSLog(@"CURRENTINDENT = %d", [fileReader currentIndent]); /* DEBUG LOG */
 							if (lineCount >= [m_maxNumLines intValue]) {
 								break;
 							}
@@ -162,7 +170,8 @@
 				}				
 				
 			}
-
+			// Immediately free file handle resource.
+			[fileReader closeFileHandle];
 		}		
 	}
 	

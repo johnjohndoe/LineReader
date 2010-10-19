@@ -16,17 +16,21 @@
 	NSString*			m_filePath;				/**< File path. */
 	NSFileHandle*		m_fileHandle;			/**< File handle. */
 	unsigned long long	m_currentOffset;		/**< Current offset is needed for forwards reading. */
-	unsigned long long	m_currentInset;			/**< Current inset is needed for backwards reading. */
+	unsigned long long	m_currentIndent;		/**< Current indent is needed for backwards reading. */
 	NSRange				m_prevDelimiterRange;	/**< Position and length of the last delimiter. */	
 	unsigned long long	m_totalFileLength;		/**< Total number of bytes in file. */
 	NSString*			m_lineDelimiter;		/**< Character for line break or page break. */
 	NSUInteger			m_chunkSize;			/**< Standard block size. */
 }
 
+@property (readwrite, assign) unsigned long long currentOffset;		/**< Property for the current offset. */
+@property (readwrite, assign) unsigned long long currentIndent;		/**< Property for the current indent. */
+
 - (id)initWithFilePath:(NSString*)filePath;
 - (NSString*)readLine;
 - (NSString*)readLineBackwards;
 - (NSString*)readTrimmedLine;
+- (void)closeFileHandle;
 
 #if NS_BLOCKS_AVAILABLE
 - (void)enumerateLinesUsingBlock:(void(^)(NSString*, BOOL*))block;

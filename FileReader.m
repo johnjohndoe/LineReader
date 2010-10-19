@@ -28,7 +28,7 @@
 	@returns An initialized FileReader object or nil if the object could not be created.
  */
 - (id)initWithFilePath:(NSString*)filePath {
-
+	
 	self = [super init];
 	if (self != nil) {
 		if (!filePath || [filePath length] <= 0) {
@@ -45,8 +45,8 @@
 		m_chunkSize = 10;										
 		[m_fileHandle seekToEndOfFile];
 		m_totalFileLength = [m_fileHandle offsetInFile];				
-		m_currentInset = m_totalFileLength;						
-		m_prevDelimiterRange = NSMakeRange(m_currentInset, 1);			
+		m_currentIndent = m_totalFileLength;						
+		m_prevDelimiterRange = NSMakeRange(m_currentIndent, 1);			
 		
 		NSLog(@"%qu characters in %@", m_totalFileLength, [filePath lastPathComponent]); /* DEBUG LOG */
 	}
@@ -56,11 +56,35 @@
 
 
 /**
+	Closes the file handle. Function should be called as soon 
+	as possible to free the file resource.
+ */
+- (void)closeFileHandle {
+
+	[m_fileHandle closeFile];
+	m_fileHandle = nil;
+}
+
+
+@synthesize currentOffset = m_currentOffset;
+@synthesize currentIndent = m_currentIndent;
+
+
+
+
+
+/**
 	Reads the file forwards.
-	Empty lines are not returned.
+	Empty lines are not returned. Result does contain the line delimiter.\n
+	The value of currentOffset can represent the following states.\n
+	+ 1st call: currentOffset = 0\n
+	+ nth call: currentOffset = Position one past the next line delimiter\n
+	+ last call: currentOffset = totalFileLength\n
 	@returns Another single line on each call or nil if the file end has been reached.
  */
 - (NSString*)readLine {
+	
+	assert(m_fileHandle);
 
 	if (m_totalFileLength == 0 || m_currentOffset >= m_totalFileLength) {
 		return nil;
@@ -75,7 +99,7 @@
 		if (m_currentOffset >= m_totalFileLength) {
 			break;
 		}
-		NSData* chunk = [m_fileHandle readDataOfLength:m_chunkSize]; // always length = 10
+		NSData* chunk = [m_fileHandle readDataOfLength:m_chunkSize];
 		// Find the location and length of the next line delimiter.
 		NSRange newLineRange = [chunk rangeOfData:newLineData];
 		if (newLineRange.location != NSNotFound) {
@@ -95,14 +119,21 @@
 
 
 
+
 /**
 	Reads the file backwards.
-	Empty lines are returned as well.
+	Empty lines are returned as well. Result does not contain the line delimiter.\n
+	The value of currentIndent can represent the following states.\n
+	+ 1st call: currentIndent = totalFileLength\n
+	+ nth call: currentIndent = Position of the "next" line delimiter\n
+	+ last call: currentIndent = 0\n
 	@returns Another single line on each call or nil if the file end has been reached.
  */
 - (NSString*)readLineBackwards {
+	
+	assert(m_fileHandle);
 
-	if (m_totalFileLength == 0 || m_currentInset == 0 && m_chunkSize == 0) {
+	if (m_totalFileLength == 0 || m_currentIndent == 0 && m_chunkSize == 0) {
 		return nil;
 	}
 	
@@ -112,17 +143,17 @@
 	
 	// Process block smaller than standard chunk size.
 	// Shrink current chunk size.
-	// Shift inset to zero.
-	if (m_currentInset < m_chunkSize) {
-		currentChunkSize = m_currentInset;
-		m_currentInset -= currentChunkSize;
+	// Shift indent to zero.
+	if (m_currentIndent < m_chunkSize) {
+		currentChunkSize = m_currentIndent;
+		m_currentIndent -= currentChunkSize;
 	}
 	// Process blocks of chunk size.
-	// Shift inset by standard chunk size.
-	if (m_currentInset >= m_chunkSize && m_currentInset <= m_totalFileLength) {
-		m_currentInset -= m_chunkSize;
+	// Shift indent by standard chunk size.
+	if (m_currentIndent >= m_chunkSize && m_currentIndent <= m_totalFileLength) {
+		m_currentIndent -= m_chunkSize;
 	}
-	[m_fileHandle seekToFileOffset:m_currentInset];
+	[m_fileHandle seekToFileOffset:m_currentIndent];
 
 	
 	NSMutableData* currentData = [[NSMutableData alloc] init];
@@ -130,13 +161,13 @@
 	
 	while (shouldReadMore) {
 		
-		if (m_currentInset == NSNotFound) {
+		if (m_currentIndent == NSNotFound) {
 			break;
 		}
 		
 		NSData* chunk = [m_fileHandle readDataOfLength:currentChunkSize];
 		NSRange newLineRange = [chunk rangeOfDataBackwardsSearch:newLineData];
-		m_prevDelimiterRange = NSMakeRange(m_currentInset + newLineRange.location, newLineRange.length);
+		m_prevDelimiterRange = NSMakeRange(m_currentIndent + newLineRange.location, newLineRange.length);
 		if (newLineRange.location == NSNotFound) {
 			m_prevDelimiterRange = NSMakeRange(NSNotFound, 0);
 		}
@@ -153,27 +184,27 @@
 		if (m_prevDelimiterRange.location == NSNotFound) {
 			// Process block smaller than standard chunk size.
 			// Shrink current chunk size.
-			// Shift inset to zero.
+			// Shift indent to zero.
 			// Break while loop if front has been reached.
-			if (m_currentInset < currentChunkSize) {				
-				currentChunkSize = m_currentInset;
-				m_currentInset -= currentChunkSize;				
-				if (currentChunkSize == 0 && m_currentInset == 0) {
+			if (m_currentIndent < currentChunkSize) {				
+				currentChunkSize = m_currentIndent;
+				m_currentIndent -= currentChunkSize;				
+				if (currentChunkSize == 0 && m_currentIndent == 0) {
 					m_chunkSize = 0;
 					break;
 				}
 			}
 			// Process blocks of chunk size.
-			// Shift inset by standard chunk size.
+			// Shift indent by standard chunk size.
 			else {
 				currentChunkSize = m_chunkSize;
-				m_currentInset -= currentChunkSize;
+				m_currentIndent -= currentChunkSize;
 			}			
-			[m_fileHandle seekToFileOffset:m_currentInset];
+			[m_fileHandle seekToFileOffset:m_currentIndent];
 		}
-		// Shift inset to last found position.
+		// Shift indent to last found position.
 		else {			
-			m_currentInset = m_prevDelimiterRange.location;
+			m_currentIndent = m_prevDelimiterRange.location;
 		}
 		
 	} // End if while.
