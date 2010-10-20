@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BackendBuffer.h"
 
 /**
 	Enum for the selected read mode. Defined values are FORWARDS = 0 and BACKWARDS = 1.
@@ -24,6 +25,7 @@ typedef enum { FORWARDS = 0, BACKWARDS = 1 } READ_MODE;
 	NSNumber*		m_printLines;			/**< Option to print lines to the console. */
 	NSString*		m_status;				/**< Program status. */
 	NSArray*		m_directoryListing;		/**< Collection of file paths. */
+	BackendBuffer*	m_backendBuffer;
 }
 
 @property (assign) IBOutlet NSWindow* window;				/**< Property for the application window. */

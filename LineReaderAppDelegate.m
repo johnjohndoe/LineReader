@@ -9,6 +9,7 @@
 #import "LineReaderAppDelegate.h"
 #import "DirectoryReader.h"
 #import "FileReader.h"
+#import "LineParser.h"
 
 
 /**
@@ -31,6 +32,7 @@
 		m_printLines = [NSNumber numberWithBool:NO];
 		m_status = [NSString stringWithFormat:@"Application started."];		
 		m_directoryListing = nil;
+		m_backendBuffer = [[BackendBuffer alloc] init];
 	}
 	return self;
 }
@@ -109,6 +111,7 @@
 			}
 			
 			NSString* line = nil;
+			NSMutableArray* lines = [NSMutableArray arrayWithCapacity:[m_maxNumLines integerValue]];
 			
 			
 			if ([m_printLines boolValue]) {
@@ -116,16 +119,32 @@
 				switch ([m_selectedReadMode intValue]) {
 					case FORWARDS:
 						[fileReader setCurrentOffset:34];
+						[lines removeAllObjects];
 						while (line = [fileReader readLine]) {
 							lineCount++;							
 							uint fromBytePos = [fileReader currentOffset] - [line length];
 							uint tillBytePos = [fileReader currentOffset] - 1;
 							NSLog(@"%3.d: (%d - %d) %@", lineCount, fromBytePos, tillBytePos, line);
 							NSLog(@"CURRENTOFFSET = %d", [fileReader currentOffset]); /* DEBUG LOG */
+
+							// Drop first line cause it might be uncomplete.
+							if (lineCount > 1) {
+								[lines addObject:line];
+							}
+
 							if (lineCount >= [m_maxNumLines intValue]) {
 								break;
 							}
-						}				
+						}
+						// -----------------------------------------------------------------------------
+						// Dispatch parsing. Drop first line cause it might be uncomplete.
+						// -----------------------------------------------------------------------------
+						LineParser* lineParser = [[LineParser alloc] initWithOriginator:m_backendBuffer 
+																			andSelector:@selector(addValues:) 
+																			   andLines:[[NSMutableArray alloc] initWithArray:lines 
+																													copyItems:YES]];
+						[lineParser performSelector:@selector(start) withObject:nil afterDelay:0.1];
+						
 						break;
 					case BACKWARDS:
 						[fileReader setCurrentIndent:34];

@@ -12,6 +12,8 @@
 		557E504F125CD4350055E512 /* DirectoryReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E504C125CD4350055E512 /* DirectoryReader.m */; };
 		557E5050125CD4350055E512 /* FileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E504E125CD4350055E512 /* FileReader.m */; };
 		557E508E125CD5B80055E512 /* NSDataExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E508C125CD5890055E512 /* NSDataExtensionsTest.m */; };
+		559F3B84126EEE9A00F76DB0 /* LineParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 559F3B83126EEE9A00F76DB0 /* LineParser.m */; };
+		559F3B95126EF43200F76DB0 /* BackendBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 559F3B94126EF43200F76DB0 /* BackendBuffer.m */; };
 		55A641DB125F4C5B000CBBAD /* NSDataExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */; };
 		55A641DC125F4C5B000CBBAD /* NSDataExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -37,6 +39,10 @@
 		557E5077125CD51D0055E512 /* NSDataExtensions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSDataExtensions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		557E5079125CD51E0055E512 /* NSDataExtensions-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NSDataExtensions-Info.plist"; sourceTree = "<group>"; };
 		557E508C125CD5890055E512 /* NSDataExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataExtensionsTest.m; sourceTree = "<group>"; };
+		559F3B82126EEE9A00F76DB0 /* LineParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineParser.h; sourceTree = "<group>"; };
+		559F3B83126EEE9A00F76DB0 /* LineParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineParser.m; sourceTree = "<group>"; };
+		559F3B93126EF43200F76DB0 /* BackendBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendBuffer.h; sourceTree = "<group>"; };
+		559F3B94126EF43200F76DB0 /* BackendBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendBuffer.m; sourceTree = "<group>"; };
 		55A641D9125F4C5B000CBBAD /* NSDataExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataExtensions.h; sourceTree = "<group>"; };
 		55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataExtensions.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LineReader-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LineReader-Info.plist"; sourceTree = "<group>"; };
@@ -74,6 +80,10 @@
 				55A641D9125F4C5B000CBBAD /* NSDataExtensions.h */,
 				55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */,
 				557E508A125CD56B0055E512 /* Testing */,
+				559F3B82126EEE9A00F76DB0 /* LineParser.h */,
+				559F3B83126EEE9A00F76DB0 /* LineParser.m */,
+				559F3B93126EF43200F76DB0 /* BackendBuffer.h */,
+				559F3B94126EF43200F76DB0 /* BackendBuffer.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -270,6 +280,8 @@
 				557E504F125CD4350055E512 /* DirectoryReader.m in Sources */,
 				557E5050125CD4350055E512 /* FileReader.m in Sources */,
 				55A641DB125F4C5B000CBBAD /* NSDataExtensions.m in Sources */,
+				559F3B84126EEE9A00F76DB0 /* LineParser.m in Sources */,
+				559F3B95126EF43200F76DB0 /* BackendBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +393,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -395,6 +408,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_GC = required;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
