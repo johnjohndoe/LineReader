@@ -43,5 +43,6 @@ typedef enum { FORWARDS = 0, BACKWARDS = 1 } READ_MODE;
 
 - (void)processSource;
 - (void)processSourceWithFileHandle;
+- (void)parseLines:(NSArray*)lines;
 
 @end

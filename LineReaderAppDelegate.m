@@ -132,6 +132,9 @@
 						}
 						
 						NSLog(@"lines: %@", lines); /* DEBUG LOG */
+						
+						// Dispatch parsing.
+						[self parseLines:lines];
 						break;
 						
 					case BACKWARDS:
@@ -156,6 +159,9 @@
 						}
 						
 						NSLog(@"lines: %@", lines); /* DEBUG LOG */
+						
+						// Dispatch parsing.
+						[self parseLines:lines];
 						break;
 
 					default:
@@ -240,18 +246,14 @@
 								break;
 							}
 						}
-						// -----------------------------------------------------------------------------
-						// Dispatch parsing. Drop first line cause it might be uncomplete.
-						// -----------------------------------------------------------------------------
-						LineParser* lineParser = [[LineParser alloc] initWithOriginator:m_backendBuffer 
-																			andSelector:@selector(addValues:) 
-																			   andLines:[[NSMutableArray alloc] initWithArray:lines 
-																													copyItems:YES]];
-						[lineParser performSelector:@selector(start) withObject:nil afterDelay:0.1];
-						
+						// Dispatch parsing.
+						[self parseLines:lines];
 						break;
+
+					
 					case BACKWARDS:
 						[fileReader setCurrentIndent:34];
+						[lines removeAllObjects];
 						while (line = [fileReader readLineBackwards]) {
 							lineCount++;							
 							uint fromBytePos = [fileReader currentIndent];
@@ -264,7 +266,11 @@
 								break;
 							}
 						}					
+						
+						// Dispatch parsing.
+						[self parseLines:lines];
 						break;
+
 					default:
 						NSLog(@"Warning: Read mode not set correctly."); /* DEBUG LOG */
 						break;
@@ -302,6 +308,7 @@
 		}		
 	}
 	
+	
 	NSTimeInterval processingEnded = [NSDate timeIntervalSinceReferenceDate];
 	
 	if ([m_selectedReadMode intValue] == FORWARDS)
@@ -310,5 +317,16 @@
 		self.status = [NSString stringWithFormat:@"Processing %d lines backwards took %f seconds.", lineCount, (processingEnded - processingStarted)];
 					
 }
+
+
+- (void)parseLines:(NSArray*)lines {
+	
+	NSMutableArray* linesCopy = [[NSMutableArray alloc] initWithArray:lines copyItems:YES];
+	LineParser* lineParser = [[LineParser alloc] initWithOriginator:m_backendBuffer 
+														andSelector:@selector(addValues:) 
+														   andLines:linesCopy];
+	[lineParser performSelector:@selector(start) withObject:nil afterDelay:0.1];
+}
+
 
 @end

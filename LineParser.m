@@ -45,13 +45,17 @@
 		if ([self isCancelled]) {
 			return;
 		}
+		// Skipping empty line.
+		if (!line || [line length] <= 0) {
+			continue;
+		}
 		
 		// Remove trailing slash if appended.
-		NSMutableString* mutableLine = [NSMutableString stringWithString:line];
-		[mutableLine replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange([line length] - 1, 1)];
+		NSMutableString* cleanLine = [NSMutableString stringWithString:line];
+		[cleanLine replaceOccurrencesOfString:@"\n" withString:@"" options:NSBackwardsSearch range:NSMakeRange([line length] - 1, 1)];
 		
 		// Convert string to double.
-		NSDate* date = [dateFormatter dateFromString:mutableLine];
+		NSDate* date = [dateFormatter dateFromString:cleanLine];
 		NSTimeInterval timeInterval = [date timeIntervalSinceReferenceDate];
 		[dates addObject:[NSNumber numberWithDouble:timeInterval]];
 	}
