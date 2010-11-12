@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* LineReaderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* LineReaderAppDelegate.m */; };
+		5517C93A128D46A600B5B2A3 /* NSFileHandleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5517C939128D46A600B5B2A3 /* NSFileHandleExtensions.m */; };
 		557E504F125CD4350055E512 /* DirectoryReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E504C125CD4350055E512 /* DirectoryReader.m */; };
 		557E5050125CD4350055E512 /* FileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E504E125CD4350055E512 /* FileReader.m */; };
 		557E508E125CD5B80055E512 /* NSDataExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E508C125CD5890055E512 /* NSDataExtensionsTest.m */; };
@@ -32,6 +33,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5517C938128D46A600B5B2A3 /* NSFileHandleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileHandleExtensions.h; sourceTree = "<group>"; };
+		5517C939128D46A600B5B2A3 /* NSFileHandleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileHandleExtensions.m; sourceTree = "<group>"; };
 		557E504B125CD4350055E512 /* DirectoryReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryReader.h; sourceTree = "<group>"; };
 		557E504C125CD4350055E512 /* DirectoryReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryReader.m; sourceTree = "<group>"; };
 		557E504D125CD4350055E512 /* FileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileReader.h; sourceTree = "<group>"; };
@@ -79,6 +82,8 @@
 				557E504E125CD4350055E512 /* FileReader.m */,
 				55A641D9125F4C5B000CBBAD /* NSDataExtensions.h */,
 				55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */,
+				5517C938128D46A600B5B2A3 /* NSFileHandleExtensions.h */,
+				5517C939128D46A600B5B2A3 /* NSFileHandleExtensions.m */,
 				557E508A125CD56B0055E512 /* Testing */,
 				559F3B82126EEE9A00F76DB0 /* LineParser.h */,
 				559F3B83126EEE9A00F76DB0 /* LineParser.m */,
@@ -282,6 +287,7 @@
 				55A641DB125F4C5B000CBBAD /* NSDataExtensions.m in Sources */,
 				559F3B84126EEE9A00F76DB0 /* LineParser.m in Sources */,
 				559F3B95126EF43200F76DB0 /* BackendBuffer.m in Sources */,
+				5517C93A128D46A600B5B2A3 /* NSFileHandleExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
