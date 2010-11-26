@@ -16,21 +16,21 @@
 
 
 /**
- Extension of the NSData class. 
- Data can be found forwards or backwards. Further the extension supplies a function 
- to convert the contents to string for debugging purposes.
- @param Additions Category labeled Additions.
- @returns An initialized NSData object or nil if the object could not be created.
+	Extension on the NSData class. 
+	Data can be found forwards or backwards. Further the extension supplies a function 
+	to convert the contents to string for debugging purposes.
+	@category NSData(Additions)
+	@abstract A category on NSData.
  */
-@implementation NSData (Additions)
+@implementation NSData(Additions)
 
 
 
 
 /**
- Returns a range of data using forwards search.
- @param dataToFind Data object specifying the delimiter.
- @returns A range.
+	Returns a range of data using forwards search.
+	@param dataToFind Data object specifying the delimiter.
+	@returns A range.
  */
 - (NSRange)rangeOfData:(NSData*)dataToFind {
 	
@@ -143,12 +143,12 @@
 
 
 /**
- Extension of the NSMutableData class. 
- Data can be prepended in addition to the append function of the framework.
- @param Additions Category labeled Additions.
- @returns An initialized NSMutableData object or nil if the object could not be created.
+	Extension on the NSMutableData class. 
+	Data can be prepended in addition to the append function of the framework.
+	@category NSMutableData(Additions)
+	@abstract A category on NSMutableData.
  */
-@implementation NSMutableData (Additions)
+@implementation NSMutableData(Additions)
 
 /**
 	Inserts the data before the data of the object.

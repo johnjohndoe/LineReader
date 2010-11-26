@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSFileHandle (Readline)
+@interface NSFileHandle(Readline)
 
 - (NSString*)readLine;
 - (NSString*)readLineBackwards;

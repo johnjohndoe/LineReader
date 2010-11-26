@@ -10,9 +10,20 @@
 #import "NSDataExtensions.h"
 
 
-@implementation NSFileHandle (Readline)
+/**
+	Extension on the NSFileHandle class.
+	@category NSFileHandle(Readline)
+	@abstract A category on NSFileHandle.
+ */
+@implementation NSFileHandle(Readline)
 
+
+/**
+	Reads data from the receiver from the front to the end.
+	@returns The data available through the receiver.
+ */
 - (NSString*)readLine {
+
 	
     NSString * _lineDelimiter = @"\n";
 	
@@ -48,7 +59,10 @@
     return line;
 }
 
-
+/**
+	Reads data from the receiver from the end to the front.
+	@returns The data available through the receiver.
+ */
 - (NSString*)readLineBackwards {
 	
     NSString * _lineDelimiter = @"\n";
