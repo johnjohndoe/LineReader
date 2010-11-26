@@ -13,7 +13,7 @@
 // NSData additions.
 // -----------------------------------------------------------------------------
 
-@interface NSData (Additions)
+@interface NSData(Additions)
 
 - (NSRange)rangeOfData:(NSData*)dataToFind;
 - (NSRange)rangeOfDataBackwardsSearch:(NSData*)dataToFind;
@@ -26,7 +26,7 @@
 // NSMutableData additions.
 // -----------------------------------------------------------------------------
 
-@interface NSMutableData (Additions)
+@interface NSMutableData(Additions)
 
 - (void)prepend:(NSData*)data;
 
