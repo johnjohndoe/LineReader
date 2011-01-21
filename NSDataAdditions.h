@@ -1,5 +1,5 @@
 //
-//  NSDataExtensions.h
+//  NSDataAdditions.h
 //  LineReader
 //
 //  Created by Tobias Preuss on 08.10.10.

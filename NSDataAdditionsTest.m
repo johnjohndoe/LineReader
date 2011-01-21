@@ -1,5 +1,5 @@
 //
-//  NSDataExtensionsTest.m
+//  NSDataAdditionsTest.m
 //  LineReader
 //
 //  Created by Tobias Preuss on 06.10.10.
@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NSDataExtensions.h"
+#import "NSDataAdditions.h"
 
 
 /**

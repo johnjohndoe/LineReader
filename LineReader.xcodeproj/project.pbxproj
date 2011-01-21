@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* LineReaderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* LineReaderAppDelegate.m */; };
-		5517C93A128D46A600B5B2A3 /* NSFileHandleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5517C939128D46A600B5B2A3 /* NSFileHandleExtensions.m */; };
+		5517C93A128D46A600B5B2A3 /* NSFileHandleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5517C939128D46A600B5B2A3 /* NSFileHandleAdditions.m */; };
 		557E504F125CD4350055E512 /* DirectoryReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E504C125CD4350055E512 /* DirectoryReader.m */; };
 		557E5050125CD4350055E512 /* FileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E504E125CD4350055E512 /* FileReader.m */; };
-		557E508E125CD5B80055E512 /* NSDataExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E508C125CD5890055E512 /* NSDataExtensionsTest.m */; };
-		55A641DB125F4C5B000CBBAD /* NSDataExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */; };
-		55A641DC125F4C5B000CBBAD /* NSDataExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */; };
+		557E508E125CD5B80055E512 /* NSDataAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E508C125CD5890055E512 /* NSDataAdditionsTest.m */; };
+		55A641DB125F4C5B000CBBAD /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A641DA125F4C5B000CBBAD /* NSDataAdditions.m */; };
+		55A641DC125F4C5B000CBBAD /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A641DA125F4C5B000CBBAD /* NSDataAdditions.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -31,17 +31,17 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		5517C938128D46A600B5B2A3 /* NSFileHandleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileHandleExtensions.h; sourceTree = "<group>"; };
-		5517C939128D46A600B5B2A3 /* NSFileHandleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileHandleExtensions.m; sourceTree = "<group>"; };
+		5517C938128D46A600B5B2A3 /* NSFileHandleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileHandleAdditions.h; sourceTree = "<group>"; };
+		5517C939128D46A600B5B2A3 /* NSFileHandleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileHandleAdditions.m; sourceTree = "<group>"; };
 		557E504B125CD4350055E512 /* DirectoryReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryReader.h; sourceTree = "<group>"; };
 		557E504C125CD4350055E512 /* DirectoryReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryReader.m; sourceTree = "<group>"; };
 		557E504D125CD4350055E512 /* FileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileReader.h; sourceTree = "<group>"; };
 		557E504E125CD4350055E512 /* FileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileReader.m; sourceTree = "<group>"; };
-		557E5077125CD51D0055E512 /* NSDataExtensions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSDataExtensions.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		557E5079125CD51E0055E512 /* NSDataExtensions-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NSDataExtensions-Info.plist"; sourceTree = "<group>"; };
-		557E508C125CD5890055E512 /* NSDataExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataExtensionsTest.m; sourceTree = "<group>"; };
-		55A641D9125F4C5B000CBBAD /* NSDataExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataExtensions.h; sourceTree = "<group>"; };
-		55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataExtensions.m; sourceTree = "<group>"; };
+		557E5079125CD51E0055E512 /* NSDataAdditions-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NSDataAdditions-Info.plist"; sourceTree = "<group>"; };
+		557E508C125CD5890055E512 /* NSDataAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditionsTest.m; sourceTree = "<group>"; };
+		559FFB9012E98B8700F28806 /* NSDataAdditions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSDataAdditions.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55A641D9125F4C5B000CBBAD /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		55A641DA125F4C5B000CBBAD /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LineReader-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LineReader-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LineReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LineReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -74,10 +74,10 @@
 				557E504C125CD4350055E512 /* DirectoryReader.m */,
 				557E504D125CD4350055E512 /* FileReader.h */,
 				557E504E125CD4350055E512 /* FileReader.m */,
-				55A641D9125F4C5B000CBBAD /* NSDataExtensions.h */,
-				55A641DA125F4C5B000CBBAD /* NSDataExtensions.m */,
-				5517C938128D46A600B5B2A3 /* NSFileHandleExtensions.h */,
-				5517C939128D46A600B5B2A3 /* NSFileHandleExtensions.m */,
+				55A641D9125F4C5B000CBBAD /* NSDataAdditions.h */,
+				55A641DA125F4C5B000CBBAD /* NSDataAdditions.m */,
+				5517C938128D46A600B5B2A3 /* NSFileHandleAdditions.h */,
+				5517C939128D46A600B5B2A3 /* NSFileHandleAdditions.m */,
 				557E508A125CD56B0055E512 /* Testing */,
 			);
 			name = Classes;
@@ -105,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* LineReader.app */,
-				557E5077125CD51D0055E512 /* NSDataExtensions.app */,
+				559FFB9012E98B8700F28806 /* NSDataAdditions.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* LineReader-Info.plist */,
-				557E5079125CD51E0055E512 /* NSDataExtensions-Info.plist */,
+				557E5079125CD51E0055E512 /* NSDataAdditions-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 			);
@@ -154,7 +154,7 @@
 		557E508A125CD56B0055E512 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				557E508C125CD5890055E512 /* NSDataExtensionsTest.m */,
+				557E508C125CD5890055E512 /* NSDataAdditionsTest.m */,
 			);
 			name = Testing;
 			sourceTree = "<group>";
@@ -162,9 +162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		557E5076125CD51D0055E512 /* NSDataExtensions */ = {
+		557E5076125CD51D0055E512 /* NSDataAdditions */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 557E507C125CD51E0055E512 /* Build configuration list for PBXNativeTarget "NSDataExtensions" */;
+			buildConfigurationList = 557E507C125CD51E0055E512 /* Build configuration list for PBXNativeTarget "NSDataAdditions" */;
 			buildPhases = (
 				557E5073125CD51D0055E512 /* Resources */,
 				557E5074125CD51D0055E512 /* Sources */,
@@ -175,9 +175,9 @@
 			comments = "Test for NSDataExtensions Backwards search.";
 			dependencies = (
 			);
-			name = NSDataExtensions;
+			name = NSDataAdditions;
 			productName = NSDataExtensions;
-			productReference = 557E5077125CD51D0055E512 /* NSDataExtensions.app */;
+			productReference = 559FFB9012E98B8700F28806 /* NSDataAdditions.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8D1107260486CEB800E47090 /* LineReader */ = {
@@ -215,7 +215,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* LineReader */,
-				557E5076125CD51D0055E512 /* NSDataExtensions */,
+				557E5076125CD51D0055E512 /* NSDataAdditions */,
 			);
 		};
 /* End PBXProject section */
@@ -261,8 +261,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55A641DC125F4C5B000CBBAD /* NSDataExtensions.m in Sources */,
-				557E508E125CD5B80055E512 /* NSDataExtensionsTest.m in Sources */,
+				55A641DC125F4C5B000CBBAD /* NSDataAdditions.m in Sources */,
+				557E508E125CD5B80055E512 /* NSDataAdditionsTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,8 +274,8 @@
 				256AC3DA0F4B6AC300CF3369 /* LineReaderAppDelegate.m in Sources */,
 				557E504F125CD4350055E512 /* DirectoryReader.m in Sources */,
 				557E5050125CD4350055E512 /* FileReader.m in Sources */,
-				55A641DB125F4C5B000CBBAD /* NSDataExtensions.m in Sources */,
-				5517C93A128D46A600B5B2A3 /* NSFileHandleExtensions.m in Sources */,
+				55A641DB125F4C5B000CBBAD /* NSDataAdditions.m in Sources */,
+				5517C93A128D46A600B5B2A3 /* NSFileHandleAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +313,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "NSDataExtensions-Info.plist";
+				INFOPLIST_FILE = "NSDataAdditions-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -322,7 +322,7 @@
 					AppKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = NSDataExtensions;
+				PRODUCT_NAME = NSDataAdditions;
 			};
 			name = Debug;
 		};
@@ -337,7 +337,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "NSDataExtensions-Info.plist";
+				INFOPLIST_FILE = "NSDataAdditions-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -346,7 +346,7 @@
 					AppKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = NSDataExtensions;
+				PRODUCT_NAME = NSDataAdditions;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -413,7 +413,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		557E507C125CD51E0055E512 /* Build configuration list for PBXNativeTarget "NSDataExtensions" */ = {
+		557E507C125CD51E0055E512 /* Build configuration list for PBXNativeTarget "NSDataAdditions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				557E507A125CD51E0055E512 /* Debug */,

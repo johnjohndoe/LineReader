@@ -9,7 +9,7 @@
 #import "LineReaderAppDelegate.h"
 #import "DirectoryReader.h"
 #import "FileReader.h"
-#import "NSFileHandleExtensions.h"
+#import "NSFileHandleAdditions.h"
 
 
 /**

@@ -1,13 +1,13 @@
 //
-//  NSFileHandleExtensions.m
+//  NSFileHandleAdditions.m
 //  LineReader
 //
 //  Created by Joe Yang on 08.11.10.
 //  Copyright 2010 Joe Yang. All rights reserved.
 //
 
-#import "NSFileHandleExtensions.h"
-#import "NSDataExtensions.h"
+#import "NSFileHandleAdditions.h"
+#import "NSDataAdditions.h"
 
 
 /**

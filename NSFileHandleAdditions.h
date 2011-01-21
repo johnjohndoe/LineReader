@@ -1,5 +1,5 @@
 //
-//  NSFileHandleExtensions.h
+//  NSFileHandleAdditions.h
 //  LineReader
 //
 //  Created by Joe Yang on 08.11.10.

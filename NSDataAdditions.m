@@ -1,12 +1,12 @@
 //
-//  NSDataExtensions.m
+//  NSDataAdditions.m
 //  LineReader
 //
 //  Created by Tobias Preuss on 08.10.10.
 //  Copyright 2010 Tobias Preuss. All rights reserved.
 //
 
-#import "NSDataExtensions.h"
+#import "NSDataAdditions.h"
 
 
 
@@ -17,8 +17,8 @@
 
 /**
 	Extension on the NSData class. 
-	Data can be found forwards or backwards. Further the extension supplies a function 
-	to convert the contents to string for debugging purposes.
+	Data can be found forwards or backwards. Further the addition 
+	supplies a function to convert the contents to string for debugging purposes.
 	@category NSData(Additions)
 	@abstract A category on NSData.
  */
