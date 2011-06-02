@@ -6,7 +6,6 @@
 //  Copyright 2010 Tobias Preuss. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 
 // -----------------------------------------------------------------------------
