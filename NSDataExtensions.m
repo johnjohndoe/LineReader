@@ -80,7 +80,7 @@
 	if (length < searchLength) {
 		return foundRange;
 	}
-	for (NSUInteger index = length - searchLength; index >= 0;) {
+	for (NSInteger index = length - searchLength; index >= 0;) {
 //		NSLog(@"%c == %c", ((char*)bytes)[index], ((char*)searchBytes)[searchIndex]); /* DEBUG LOG */
 		if (((char*)bytes)[index] == ((char*)searchBytes)[searchIndex]) {
 			// The current character matches.

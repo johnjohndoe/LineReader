@@ -14,7 +14,7 @@
  */
 @implementation DirectoryReader
 
-
+#define kFileAttributeFileNameKey @"fileName"
 /**
 	Initializes a directory reader.
 	@param path A directory path.
@@ -63,5 +63,42 @@
 	return success;
 }
 
+- (BOOL)readDirectoryWithFileAttributes:(NSArray**)fileAttributes{
+    NSArray *fileNames;
+    BOOL success = [self readDirectory:&fileNames];
+    
+    if (!success) // couldn't read directory
+        return NO;
+    
+    NSError *fileIoError;
+    // create array to gather attributes
+    NSMutableArray *fileAttributesResults = [NSMutableArray arrayWithCapacity:[fileNames count]];
+    for (NSString *fileName in fileNames){
+        NSMutableDictionary *extendedDictionary = [NSMutableDictionary dictionaryWithDictionary:[[NSFileManager defaultManager] attributesOfItemAtPath:fileName error:&fileIoError]];
+        [extendedDictionary setObject:fileName forKey:kFileAttributeFileNameKey];
+        [fileAttributesResults addObject:extendedDictionary];
+    }
+         
+    *fileAttributes = [NSArray arrayWithArray:fileAttributesResults];
+    return YES;
+
+
+}
+
+- (BOOL)readDirectoryByFileModificationDateDesc:(NSArray**)files{
+    NSArray *fileAttributes;
+    BOOL success = [self readDirectoryWithFileAttributes:&fileAttributes];
+    if (!success) // couldn't read directory
+        return NO;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fileModificationDate" ascending:NO];
+    NSArray *sortedAttributes = [fileAttributes sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    NSMutableArray *fileNames = [NSMutableArray arrayWithCapacity:[fileAttributes count]];
+    for( NSDictionary *fileAttributeDictionary in sortedAttributes){
+        [fileNames addObject:[fileAttributeDictionary objectForKey:kFileAttributeFileNameKey]];
+    }
+    
+    *files = [NSArray arrayWithArray:fileNames];
+    return YES;
+}
 
 @end
