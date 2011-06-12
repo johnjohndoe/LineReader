@@ -8,8 +8,6 @@
 //  Originally written by Dave DeLong, 
 //  Source: http://stackoverflow.com/questions/3707427#3711079
 
-#import <Cocoa/Cocoa.h>
-
 
 @interface FileReader : NSObject {
 	
