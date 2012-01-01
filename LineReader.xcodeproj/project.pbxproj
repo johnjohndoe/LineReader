@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -182,7 +182,6 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				55B759F312635F5A009DC666 /* Build Doxymentation */,
 			);
 			buildRules = (
 			);
@@ -200,11 +199,16 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Tobias Preuss";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LineReader" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* SequentialReader */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,23 +237,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		55B759F312635F5A009DC666 /* Build Doxymentation */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Build Doxymentation";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Configuration - Change file names here only!\n# ================================================\n# Setup a path to your development folder.\nWORKROOT=\"$HOME/Development\"\n\n\n# All files are expected to sit in WORKROOT/DoxymentationScripts/files/\n# DOXYMENTATIONSCRIPTS_DIRECTORY => DDIR\n# DOXYGEN_CONFIG_FILE => DCF\n# DOXYGEN_BUILD_SCRIPT => DBS\n# DOXYGEN_SEARCH_REPLACE_SCRIPT => DSRS\nDDIR=\"DoxymentationScripts/files/\"\nDCF=\"Doxyfile\"\nDBS=\"build-doxygen.sh\"\nDSRS=\"searchreplace.sh\"\n\n\n# Copy all scripts to temp before executing them.\ncp \"$WORKROOT/$DDIR/$DBS\" \"$TEMP_DIR/$DBS\"\ncp \"$WORKROOT/$DDIR/$DSRS\" \"$TEMP_DIR/$DSRS\"\ncp \"$WORKROOT/$DDIR/$DCF\" \"$TEMP_DIR/$DCF\"\n\n\n# The Doxygen output is written to log files.\n# TEMP_DIR refers to the build folder of your project:\n# $WORKWOORT/$PROJECT_NAME/XCode/build/$PROJECT_NAME.build/Debug/$PROJECT_NAME.build\n\"$TEMP_DIR/$DBS\" \"$TEMP_DIR/$DSRS\" \"$TEMP_DIR/$DCF\" > \"$TEMP_DIR/doxygen.output.log\" 2> \"$TEMP_DIR/doxygen.log\" &\n\n\n# If you want to see the output of the script, you can uncomment the following line.\n# open \"$TEMP_DIR/doxygen.output.log\"\n\n\n# Temporary files are not removed since the run script can be \n# faster then the shell script that make use of the files.";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		557E5074125CD51D0055E512 /* Sources */ = {
@@ -301,7 +288,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -315,7 +301,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = NSDataExtensions;
 			};
 			name = Debug;
@@ -326,7 +311,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -339,7 +323,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = NSDataExtensions;
 				ZERO_LINK = NO;
 			};
@@ -351,7 +334,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -385,8 +367,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -397,8 +378,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

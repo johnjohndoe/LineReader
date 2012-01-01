@@ -15,8 +15,9 @@ Configuration
 
 The following configuration is used for the project.
 
-* MacOSX 10.6.x
-* XCode 3.2.x. 64bit
+* MacOSX 10.7.2
+* SDK 10.7.
+* XCode 4.2. 64bit
 * Cocoa Application
 * Garbage collection
 
