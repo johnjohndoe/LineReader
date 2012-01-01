@@ -115,7 +115,7 @@
 				// Print lines to console.
 				switch ([m_selectedReadMode intValue]) {
 					case FORWARDS:
-						while (line = [fileReader readLine]) {
+						while ((line = [fileReader readLine])) {
 							lineCount++;
 							NSLog(@"%3.d: %@", lineCount, line);
 							if (lineCount >= [m_maxNumLines intValue]) {
@@ -124,7 +124,7 @@
 						}				
 						break;
 					case BACKWARDS:
-						while (line = [fileReader readLineBackwards]) {
+						while ((line = [fileReader readLineBackwards])) {
 							lineCount++;
 							NSLog(@"%3.d: %@", lineCount, line);
 							if (lineCount >= [m_maxNumLines intValue]) {
@@ -141,7 +141,7 @@
 				// Do not print lines to console.				
 				switch ([m_selectedReadMode intValue]) {
 					case FORWARDS:
-						while (line = [fileReader readLine]) {
+						while ((line = [fileReader readLine])) {
 							lineCount++;
 							if (lineCount >= [m_maxNumLines intValue]) {
 								break;
@@ -149,7 +149,7 @@
 						}				
 						break;
 					case BACKWARDS:
-						while (line = [fileReader readLineBackwards]) {
+						while ((line = [fileReader readLineBackwards])) {
 							lineCount++;
 							if (lineCount >= [m_maxNumLines intValue]) {
 								break;

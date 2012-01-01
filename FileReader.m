@@ -107,7 +107,7 @@
  */
 - (NSString*)readLineBackwards {
 
-	if (m_totalFileLength == 0 || m_currentInset == 0 && m_chunkSize == 0) {
+	if (m_totalFileLength == 0 || (m_currentInset == 0 && m_chunkSize == 0)) {
 		return nil;
 	}
 	
