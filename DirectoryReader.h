@@ -14,6 +14,7 @@
 	NSString*	m_path;		/**< File path. */
 }
 
+- (id)initWithPath:(NSString*)path;
 - (BOOL)readDirectory:(NSArray**)files;
 
 @end

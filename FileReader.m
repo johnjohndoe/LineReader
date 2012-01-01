@@ -133,7 +133,7 @@
 	
 	assert(m_fileHandle);
 
-	if (m_totalFileLength == 0 || m_currentIndent == 0 && m_chunkSize == 0) {
+	if (m_totalFileLength == 0 || (m_currentIndent == 0 && m_chunkSize == 0)) {
 		return nil;
 	}
 	

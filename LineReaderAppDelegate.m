@@ -119,7 +119,7 @@
 				switch ([m_selectedReadMode intValue]) {
 					case FORWARDS:
 						[lines removeAllObjects];
-						while (line = [fileHandle readLine]) {
+						while ((line = [fileHandle readLine])) {
 							if (line) {
 								lineCount++;
 								// Drop first line cause it might be uncomplete.
@@ -140,7 +140,7 @@
 						
 					case BACKWARDS:
 						[lines removeAllObjects];
-						while (line = [fileHandle readLineBackwards]) {
+						while ((line = [fileHandle readLineBackwards])) {
 							if (line) {
 								lineCount++;
 								
@@ -228,12 +228,12 @@
 					case FORWARDS:
 						[fileReader setCurrentOffset:34];
 						[lines removeAllObjects];
-						while (line = [fileReader readLine]) {
+						while ((line = [fileReader readLine])) {
 							lineCount++;							
 							uint fromBytePos = [fileReader currentOffset] - [line length];
 							uint tillBytePos = [fileReader currentOffset] - 1;
 							NSLog(@"%3.d: (%d - %d) %@", lineCount, fromBytePos, tillBytePos, line);
-							NSLog(@"CURRENTOFFSET = %d", [fileReader currentOffset]); /* DEBUG LOG */
+							NSLog(@"CURRENTOFFSET = %llu", [fileReader currentOffset]); /* DEBUG LOG */
 
 							// Drop first line cause it might be uncomplete.
 							if (lineCount > 1) {
@@ -247,12 +247,12 @@
 						break;
 					case BACKWARDS:
 						[fileReader setCurrentIndent:34];
-						while (line = [fileReader readLineBackwards]) {
+						while ((line = [fileReader readLineBackwards])) {
 							lineCount++;							
 							uint fromBytePos = [fileReader currentIndent];
 							uint tillBytePos = fromBytePos + [line length];
 							NSLog(@"%3.d: (%d - %d) %@", lineCount, fromBytePos, tillBytePos, line);
-							NSLog(@"CURRENTINDENT = %d", [fileReader currentIndent]); /* DEBUG LOG */
+							NSLog(@"CURRENTINDENT = %llu", [fileReader currentIndent]); /* DEBUG LOG */
 							
 							[lines insertObject:line atIndex:0];
 							if (lineCount >= [m_maxNumLines intValue]) {
@@ -270,7 +270,7 @@
 				switch ([m_selectedReadMode intValue]) {
 					case FORWARDS:
 						[lines removeAllObjects];
-						while (line = [fileReader readLine]) {
+						while ((line = [fileReader readLine])) {
 							lineCount++;
 							if (lineCount >= [m_maxNumLines intValue]) {
 								break;
@@ -279,7 +279,7 @@
 						break;
 					case BACKWARDS:
 						[lines removeAllObjects];
-						while (line = [fileReader readLineBackwards]) {
+						while ((line = [fileReader readLineBackwards])) {
 							lineCount++;
 							if (lineCount >= [m_maxNumLines intValue]) {
 								break;
