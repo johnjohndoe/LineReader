@@ -10,6 +10,14 @@ can find his answer on a question at stackoverflow.com.
 
 * [How to read data from NSFileHandle line by line?](http://stackoverflow.com/questions/3707427#3711079)
 
+
+Screenshot
+------------------
+The screenshot shows the current implementation.
+
+![LineReader](https://github.com/johnjohndoe/LineReader/raw/master/screenshot.png "LineReader")
+
+
 Configuration
 -------------
 
